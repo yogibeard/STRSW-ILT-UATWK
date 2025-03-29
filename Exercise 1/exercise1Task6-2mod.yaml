@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: manual-nfs-pvc
+  labels:
+    storage.k8s.io/name: nfs
+spec:
+  accessModes: 
+  - ReadWriteMany
+  storageClassName: ''
+  volumeName: manual-nfs-pv
+  resources:
+    requests:
+      storage: 1Gi
+
+
