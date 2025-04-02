@@ -1,3 +1,0 @@
-ms-kubernetes-tools.vscode-kubernetes-tools
-ms-toolsai.jupyter
-ms-python.python
