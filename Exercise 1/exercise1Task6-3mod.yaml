@@ -1,15 +1,10 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: nfs-snap-pod
-  namespace: default
+  name: manual-nfs-pod
   labels:
-    app: nfs-snap-web
+    app: nfs-web
 spec:
-  volumes:
-    - name: nfs-storage
-      persistentVolumeClaim:
-       claimName: c1-svm0-nfs-pvcsnap-1
   containers:
     - name: nfs-container
       image: nginx:1.25-alpine-slim
@@ -27,3 +22,7 @@ spec:
       volumeMounts:
         - mountPath: "/usr/share/nginx/html"
           name: nfs-storage
+  volumes:
+  - name: nfs-storage
+    persistentVolumeClaim:
+      claimName: manual-nfs-pvc

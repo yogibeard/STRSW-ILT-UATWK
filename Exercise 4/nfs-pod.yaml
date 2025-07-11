@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: c1-svm0-nfs-sc
+  volumeMode: Filesystem
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: papa
+  name: papa-pod
+  namespace: default
+spec:
+  containers:
+  - image: nginx:1.25-alpine-slim
+    imagePullPolicy: IfNotPresent
+    name: nfs-container
+    ports:
+    - containerPort: 80
+      name: http-server
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 250m
+        memory: 64Mi
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: nfs-storage
+  volumes:
+  - name: nfs-storage
+    persistentVolumeClaim:
+      claimName: nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nfs-web1
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: http-server
+  selector:
+    app: papa
+  type: NodePort

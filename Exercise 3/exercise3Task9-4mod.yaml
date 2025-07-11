@@ -1,19 +1,18 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: nfs-snap-pod
+  name: nvme-pod
   namespace: default
   labels:
-    app: nfs-snap-web
+    app: nvme-web
 spec:
   volumes:
-    - name: nfs-storage
+    - name: nvme-storage
       persistentVolumeClaim:
-       claimName: c1-svm0-nfs-pvcsnap-1
+       claimName: c1-svm1-nvme-pvc-1
   containers:
-    - name: nfs-container
+    - name: nvme-container
       image: nginx:1.25-alpine-slim
-      imagePullPolicy: IfNotPresent
       resources:
         requests:
           memory: "64Mi"
@@ -26,4 +25,4 @@ spec:
           name: "http-server"
       volumeMounts:
         - mountPath: "/usr/share/nginx/html"
-          name: nfs-storage
+          name: nvme-storage

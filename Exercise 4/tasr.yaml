@@ -1,0 +1,8 @@
+apiVersion: trident.netapp.io/v1
+kind: TridentActionSnapshotRestore
+metadata:
+  name: trident-snap
+  namespace: trident
+spec:
+  pvcName: c1-svm0-nfs-pvc-1 
+  volumeSnapshotName: myvolsnap 

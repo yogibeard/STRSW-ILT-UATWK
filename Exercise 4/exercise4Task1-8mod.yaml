@@ -1,0 +1,16 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: snapclone
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: c1-svm0-nfs-sc
+  dataSource:
+    name: myvolsnap
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.ios
