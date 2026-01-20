@@ -3,7 +3,7 @@
 # Execute by: ./exercise6Task1-9.sh
 
 #!/bin/bash
-sudo apt install sshpass
+#sudo apt install sshpass
 
 for run in {1..2}; do
     echo "Run: kubwor2-$run"
